@@ -6,7 +6,6 @@ import { Filter } from "@components/Filter";
 import { Highlight } from "@components/Highlight";
 import { ButtonIcon } from "@components/ButtonIcon";
 import { PlayerCard } from "@components/PlayerCard";
-
 import { Container, Form, HeaderList, NumbersOfPlayers } from "./styles";
 import { ListEmpty } from "@components/ListEmpty";
 import { Button } from "@components/Button";
