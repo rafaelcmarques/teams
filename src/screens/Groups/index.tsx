@@ -1,6 +1,8 @@
 import { FlatList} from 'react-native';
-import { useState } from 'react';
-import { useNavigation} from '@react-navigation/native';
+import { useState, useCallback } from 'react';
+import { useNavigation, useFocusEffect} from '@react-navigation/native';
+
+import { groupsGetAll } from '@storage/group/groupGetAll';
 
 import { Header } from '@components/Header';
 import { GroupCard } from '@components/GroupCard';
@@ -12,6 +14,15 @@ import { Container } from './styles';
 
 export function Groups() {
   const [groups, setGroups] = useState<string[]>([])
+  
+  async function fetchGroups() {
+    try {
+      const data = await groupsGetAll()
+      setGroups(data)
+    } catch(error){
+      console.log(error)
+    }
+  }
 
   const navigation = useNavigation()
   
@@ -19,8 +30,12 @@ export function Groups() {
     navigation.navigate('new')
   }
 
+  useFocusEffect(useCallback(()=>{
+    fetchGroups();
+  }, []))
+
   return (
-    <Container>
+    <Container> 
       <Header  />
       <Highlight 
         title='Turmas' 
